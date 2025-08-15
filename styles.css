@@ -1,0 +1,213 @@
+:root { 
+  --bg: #ffffff; 
+  --panel: #ffffff; 
+  --text: #1a1a1a; 
+  --muted: #6b7280; 
+  --accent: #e31b23; /* 1D red */ 
+  --accent-2: #b80d14; 
+  --danger: #e11d48;
+}
+
+* { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  font-family: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, Noto Sans, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+  background: radial-gradient(1600px 1000px at 80% 10%, #fff5f5 0%, var(--bg) 55%);
+  color: var(--text);
+}
+
+.app { 
+  min-height: 100%; 
+  display: grid; 
+  grid-template-rows: auto 1fr auto; 
+}
+
+.header { 
+  padding: 20px 24px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: space-between; 
+  gap: 16px; 
+}
+
+.header h1 { 
+  margin: 0; 
+  font-size: 24px; 
+  font-weight: 800; 
+  letter-spacing: 0.2px; 
+  color: var(--accent);
+}
+
+.scoreboard { 
+  display: flex; 
+  gap: 16px; 
+  color: var(--muted); 
+  font-weight: 600; 
+}
+
+.game { 
+  padding: 8px 16px 16px; 
+  display: grid; 
+  grid-template-columns: 1fr; 
+  gap: 16px; 
+}
+
+.stage { 
+  margin: 0 auto; 
+  width: min(92vw, 560px); 
+}
+
+.image { 
+  position: relative; 
+  aspect-ratio: 4 / 3; 
+  border-radius: 16px; 
+  overflow: hidden; 
+  box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
+  background: #f8f8f8; 
+  max-height: 52vh; 
+  width: 100%;
+  margin: 0 auto;
+}
+
+.image-backdrop {
+  position: absolute;
+  background: #ffffff;
+  left: 0; top: 0; right: 0; bottom: 0;
+}
+
+.image img { 
+  width: 100%; 
+  height: 100%; 
+  object-fit: contain; 
+  background: #ffffff; 
+  display: block; 
+}
+
+.overlay-grid { 
+  position: absolute; 
+  display: grid; 
+  grid-template-columns: repeat(6, 1fr); 
+  grid-template-rows: repeat(6, 1fr); 
+  pointer-events: none; 
+}
+
+.tile { 
+  background: linear-gradient(180deg, rgb(227,27,35), rgb(184,13,20)); 
+  border: 1px solid rgba(184,13,20,0.4); 
+  transition: transform 320ms ease, opacity 320ms ease, filter 320ms ease; 
+}
+
+/* Outer frame is part of edge tiles so it disappears when the tile is removed */
+.tile.edge-top { border-top: 3px solid var(--accent); }
+.tile.edge-bottom { border-bottom: 3px solid var(--accent); }
+.tile.edge-left { border-left: 3px solid var(--accent); }
+.tile.edge-right { border-right: 3px solid var(--accent); }
+
+.tile.hidden { 
+  opacity: 0; 
+  transform: scale(0.96); 
+  pointer-events: none; 
+}
+
+.attribution { 
+  margin-top: 8px; 
+  color: var(--muted); 
+  font-size: 12px; 
+  text-align: center;
+}
+
+.attribution a { color: var(--accent); text-decoration: none; }
+.attribution a:hover { text-decoration: underline; }
+
+.controls { 
+  margin: 8px auto 0; 
+  width: min(92vw, 560px); 
+  display: grid; 
+  gap: 10px; 
+}
+
+.buttons { 
+  display: grid; 
+  grid-template-columns: repeat(5, 1fr); 
+  gap: 10px; 
+}
+
+@media (max-height: 740px) {
+  .image { max-height: 46vh; }
+}
+
+@media (max-height: 640px) {
+  .image { max-height: 42vh; }
+}
+
+button { 
+  appearance: none; 
+  border: 2px solid var(--accent); 
+  background: var(--panel); 
+  color: var(--accent); 
+  padding: 12px 14px; 
+  border-radius: 12px; 
+  font-weight: 700; 
+  letter-spacing: 0.2px; 
+  cursor: pointer; 
+  box-shadow: 0 6px 14px rgba(227,27,35,0.12); 
+  transition: transform 120ms ease, background 200ms ease, color 200ms ease, box-shadow 200ms ease; 
+}
+
+button:hover { 
+  transform: translateY(-1px); 
+  background: #fff1f2; 
+}
+
+button:active { 
+  transform: translateY(0); 
+}
+
+button.primary { 
+  background: linear-gradient(90deg, var(--accent), var(--accent-2)); 
+  color: #ffffff;
+}
+
+button:disabled { 
+  opacity: 0.5; 
+  cursor: not-allowed; 
+}
+
+.footer { 
+  padding: 16px 24px; 
+  color: var(--muted); 
+  font-size: 12px; 
+  text-align: center; 
+}
+
+.correct {
+  background: linear-gradient(90deg, #22c55e, #16a34a);
+  color: #ffffff;
+  border-color: #16a34a;
+  box-shadow: 0 6px 14px rgba(22, 163, 74, 0.35);
+}
+.wrong {
+  background: linear-gradient(90deg, #ef4444, #dc2626);
+  color: #ffffff;
+  border-color: #dc2626;
+  box-shadow: 0 6px 14px rgba(220, 38, 38, 0.35);
+}
+
+button.correct:hover,
+button.wrong:hover { 
+  transform: none; 
+}
+
+button.correct:disabled,
+button.wrong:disabled {
+  opacity: 1;
+}
+
+/* Specific style for guess buttons to keep them white with red borders */
+.guess { background: #ffffff; color: var(--accent); }
+.guess:hover { background: #fff1f2; }
+
+

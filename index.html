@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>One Direction Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1>One Direction Photo Quiz</h1>
+        <div class="scoreboard">
+          <div>Score: <span id="score">0</span></div>
+          <div>Round: <span id="round">1</span></div>
+          <div>Revealed: <span id="revealed">0</span>/36</div>
+          <div>Potential: <span id="potential">1000</span></div>
+        </div>
+      </header>
+
+      <main class="game">
+        <div class="stage">
+          <div class="image" id="imageContainer">
+            <div class="image-backdrop" id="imageBackdrop"></div>
+            <img id="photo" alt="Who is this One Direction member?" />
+            <div class="overlay-grid" id="overlayGrid"></div>
+          </div>
+          <div class="attribution" id="attribution"></div>
+        </div>
+
+        <div class="controls">
+          <div class="buttons" id="buttons">
+            <button class="guess" data-member="Harry Styles">Harry Styles</button>
+            <button class="guess" data-member="Niall Horan">Niall Horan</button>
+            <button class="guess" data-member="Liam Payne">Liam Payne</button>
+            <button class="guess" data-member="Louis Tomlinson">Louis Tomlinson</button>
+            <button class="guess" data-member="Zayn Malik">Zayn Malik</button>
+          </div>
+        </div>
+      </main>
+
+      <footer class="footer">
+        <span>Images via Wikimedia Commons. This quiz uses CC-licensed media. Attribution shown per image.</span>
+      </footer>
+    </div>
+
+    <script src="./script.js" defer></script>
+  </body>
+  </html>
+
+
