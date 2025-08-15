@@ -18,10 +18,10 @@ let intervalId = null;
 let tilesOrder = [];
 let roundOver = false;
 let tilesRef = [];
+let isPaused = false;
 
 const photo = document.getElementById('photo');
 const grid = document.getElementById('overlayGrid');
-const imageBackdrop = document.getElementById('imageBackdrop');
 function fitGridToImage() {
   // Compute letterboxed area for object-fit: contain and place grid over it
   const container = document.getElementById('imageContainer');
@@ -55,12 +55,7 @@ function fitGridToImage() {
   grid.style.width = `${drawWidth}px`;
   grid.style.height = `${drawHeight}px`;
 
-  if (imageBackdrop) {
-    imageBackdrop.style.left = `${offsetLeft}px`;
-    imageBackdrop.style.top = `${offsetTop}px`;
-    imageBackdrop.style.width = `${drawWidth}px`;
-    imageBackdrop.style.height = `${drawHeight}px`;
-  }
+
 }
 
 const scoreEl = document.getElementById('score');
@@ -69,6 +64,7 @@ const revealedEl = document.getElementById('revealed');
 const potentialEl = document.getElementById('potential');
 const attributionEl = document.getElementById('attribution');
 const buttonsContainer = document.getElementById('buttons');
+const pauseBtn = document.getElementById('pauseBtn');
 
 async function fetchImages() {
   const candidates = [
@@ -128,7 +124,7 @@ function planTileRevealOrder() {
 function startAutoReveal(tiles) {
   stopAutoReveal();
   intervalId = setInterval(() => {
-    if (roundOver) return stopAutoReveal();
+    if (roundOver || isPaused) return;
     if (revealedCount >= TILES) return handleRoundEnd(false);
     revealNextTile(tiles);
   }, REVEAL_INTERVAL_MS);
@@ -259,6 +255,12 @@ function nextRound() {
   loadRound();
 }
 
+function togglePause() {
+  isPaused = !isPaused;
+  pauseBtn.classList.toggle('paused', isPaused);
+  pauseBtn.querySelector('.pause-icon').textContent = isPaused ? '▶' : '⏸';
+}
+
 function onGuessClick(e) {
   const target = e.target;
   if (!(target instanceof HTMLElement)) return;
@@ -277,6 +279,7 @@ async function init() {
     return;
   }
   buttonsContainer.addEventListener('click', onGuessClick);
+  pauseBtn.addEventListener('click', togglePause);
   window.addEventListener('resize', fitGridToImage);
   loadRound();
 }

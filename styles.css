@@ -31,6 +31,7 @@ body {
   align-items: center; 
   justify-content: space-between; 
   gap: 16px; 
+  position: relative;
 }
 
 .header h1 { 
@@ -39,6 +40,35 @@ body {
   font-weight: 800; 
   letter-spacing: 0.2px; 
   color: var(--accent);
+}
+
+.pause-btn {
+  position: absolute;
+  right: 24px;
+  top: 120%;
+  transform: translateY(-50%);
+  background: var(--accent);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 48px;
+  height: 48px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 12px rgba(227,27,35,0.3);
+}
+
+.pause-btn:hover {
+  background: var(--accent-2);
+  transform: translateY(-50%) scale(1.05);
+}
+
+.pause-btn.paused .pause-icon {
+  content: "▶";
 }
 
 .scoreboard { 
@@ -65,25 +95,19 @@ body {
   aspect-ratio: 4 / 3; 
   border-radius: 16px; 
   overflow: hidden; 
-  box-shadow: 0 10px 30px rgba(0,0,0,0.15); 
-  background: #f8f8f8; 
   max-height: 52vh; 
   width: 100%;
   margin: 0 auto;
 }
 
-.image-backdrop {
-  position: absolute;
-  background: #ffffff;
-  left: 0; top: 0; right: 0; bottom: 0;
-}
+
 
 .image img { 
   width: 100%; 
   height: 100%; 
   object-fit: contain; 
-  background: #ffffff; 
   display: block; 
+  z-index: 1;
 }
 
 .overlay-grid { 
@@ -92,6 +116,7 @@ body {
   grid-template-columns: repeat(6, 1fr); 
   grid-template-rows: repeat(6, 1fr); 
   pointer-events: none; 
+  z-index: 2;
 }
 
 .tile { 
